@@ -1,8 +1,10 @@
-test_*
+## Ignore the following files:
+
+# Tmp files
+*~
+
+# Pycache files
+*__pycache__*
+
+# Temporarily created file from running console
 file.json
-*.pyc
-models/__pycache__/__init__.cpython-38.pyc
-models/__pycache__/__init__.cpython-38.pyc
-models/__pycache__/base_model.cpython-38.pyc
-models/engine/__pycache__/__init__.cpython-38.pyc
-models/engine/__pycache__/file_storage.cpython-38.pyc
