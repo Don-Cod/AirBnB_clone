@@ -1,59 +1,77 @@
 #!/usr/bin/python3
+from datetime import datetime
+from uuid import uuid4
+import models
+
 """
-This module contains a class 'BaseModel'
-which defines all common attributes/methods
-for other classes.
+Module BaseModel
+Parent of all classes
 """
 
-import uuid
-from datetime import datetime as dt
-from models import storage
 
-
-class BaseModel(object):
+class BaseModel():
+    """Base class for Airbnb clone project
+    Methods:
+        __init__(self, *args, **kwargs)
+        __str__(self)
+        __save(self)
+        __repr__(self)
+        to_dict(self)
     """
-    This class deines all commom attributes
-    or methods for other classes
 
-    Attributes includes
-    id => a string assigned with an uuid for an instance
-    created_at => the datetime when an instance was created
-    updated_at => the datetime when an instance is crerated / modified
-    """
     def __init__(self, *args, **kwargs):
         """
-         Instantiates the base_model object
+        Initialize attributes: random uuid, dates created/updated
+
+
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = dt.now()
-        self.updated_at = dt.now()
         if kwargs:
             for key, val in kwargs.items():
-                if key in ["created_at, updated_at"]:
-                    val = dt.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key != "__class__":
-                    setattr(self, key, val)
-                else:
+                if "created_at" == key:
+                    self.created_at = datetime.strptime(kwargs["created_at"],
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                elif "updated_at" == key:
+                    self.updated_at = datetime.strptime(kwargs["updated_at"],
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                elif "__class__" == key:
                     pass
+                else:
+                    setattr(self, key, val)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
-        """ prints a representation of the object """
-        return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, self.__dict__)
+        """
+        Return string of info about model
+        """
+        return ('[{}] ({}) {}'.
+                format(self.__class__.__name__, self.id, self.__dict__))
+
+    def __repr__(self):
+        """
+        returns string representation
+        """
+        return (self.__str__())
 
     def save(self):
-        """updates the public instance attribute
-           'updated_at' with the current datetime.
         """
-        self.updated_at = dt.now()
-        storage.save()
+        Update instance with updated time & save to serialized file
+        """
+        self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
-        returns a dictionary containing all keys/values of
-        '__dict__' of the instance or object.
+        Return dic with string formats of times; add class info to dic
         """
-        fmt = "%Y-%m-%dT%H:%M:%S.%f"
-        self.__dict__["__class__"] = self.__class__.__name__
-        self.__dict__["created_at"] = self.created_at.strftime(fmt)
-        self.__dict__["updated_at"] = self.updated_at.strftime(fmt)
-        return self.__dict__
+        dic = {}
+        dic["__class__"] = self.__class__.__name__
+        for k, v in self.__dict__.items():
+            if isinstance(v, (datetime, )):
+                dic[k] = v.isoformat()
+            else:
+                dic[k] = v
+        return dic
