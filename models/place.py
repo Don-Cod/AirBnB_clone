@@ -1,30 +1,26 @@
 #!/usr/bin/python3
 """
-This file contains a class that inherits
-from BaseModel
+Module Place class
 """
-
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
     """
-    This class inherits from BaseModel
-
-    ===== Public Class Attributes ======
-    city_id => string - empty string
-    user_id => string - empty string
-    name => string - empty_string
-    description => string - empty string
-    number_rooms => integer - 0
-    number_bathrooms => integer - 0
-    max_guest => integer - 0
-    price_by_night => integer 0
-    latitude => float - 0.0
-    longitude => float - 0.0
-    amenity_ids => list of string - empty list
+    Inherits from BaseModel
+    Public class attributes:
+        city_id:             (str) will be City.id
+        user_id:             (str) will be User.id
+        name:                (str)
+        description:         (str)
+        number_rooms:        (int) 0
+        number_bathrooms:    (int) 0
+        max_guest:           (int) 0
+        price_by_night:      (int) 0
+        latitude:            (float) 0.0
+        longitude:           (float) 0.0
+        amenity_ids:         (list) will be Amenity.id
     """
-
     city_id = ""
     user_id = ""
     name = ""

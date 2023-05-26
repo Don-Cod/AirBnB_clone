@@ -1,17 +1,14 @@
 #!/usr/bin/python3
 """
-This module contains a state class
-that inherits from BaseModel
+Module State class
 """
-
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
     """
-    This class inherits from BaseModel
-
-    ======  Public Class Attributes =====
-    name => string - empty string
+    Inherits from BaseModel
+    Public class attribute:
+        name: (str)
     """
     name = ""
