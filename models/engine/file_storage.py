@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the FileStorage class."""
+"""FileStorage clasS"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -11,7 +11,7 @@ from models.review import Review
 
 
 class FileStorage:
-    """Represent an abstracted storage engine.
+    """Abstracted storage engine.
 
     Attributes:
         __file_path (str): The name of the file to save objects to.
@@ -21,11 +21,11 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        """Return the dictionary __objects."""
+        """Return dictionary __objects"""
         return FileStorage.__objects
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id"""
+        """Set __objects obj with key <obj_class_name>.id"""
         ocname = obj.__class__.__name__
         FileStorage.__objects["{}.{}".format(ocname, obj.id)] = obj
 
@@ -37,7 +37,7 @@ class FileStorage:
             json.dump(objdict, f)
 
     def reload(self):
-        """Deserialize the JSON file __file_path to __objects, if it exists."""
+        """Unpack JSON file __file_path to __objects, if it exists."""
         try:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
