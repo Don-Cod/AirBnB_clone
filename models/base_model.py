@@ -4,6 +4,7 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class BaseModel:
     """Represents the BaseModel of the HBnB project."""
 
@@ -16,9 +17,9 @@ class BaseModel:
         """
         # String format for representing datetime objects.
         tform = "%Y-%m-%dT%H:%M:%S.%f"
-        # Generate a unique ID for the instance 
+        # Generate a unique ID for the instance
         self.id = str(uuid4())
-        
+
         self.created_at = datetime.today()
 
         self.updated_at = datetime.today()
@@ -32,7 +33,7 @@ class BaseModel:
             models.storage.new(self)
 
     def save(self):
-        """Update updated_at with the current datetime and save the instance."""
+        """updated_at with the current datetime and save the instance."""
         self.updated_at = datetime.today()
         models.storage.save()
 
