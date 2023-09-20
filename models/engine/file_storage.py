@@ -60,8 +60,7 @@ class FileStorage:
 
             for obj_dict in data.values():
                 key = f"{obj_dict['__class__']}.{obj_dict['id']}"
-                FileStorage.__objects.\
-                    setdefault(key, eval(obj_dict['__class__'])(**obj_dict))
+                setdefault(key, eval(obj_dict['__class__'])(**obj_dict))
 
         except FileNotFoundError as e:
             pass
